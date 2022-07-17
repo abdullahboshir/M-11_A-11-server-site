@@ -46,21 +46,44 @@ try{
         });
 
 
+        app.put('/user/:id', async (req, res) => {
+          
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    name: updateUser.name,
+                    email: updateUser.email
+                }
+            };
+            const result = await userCollection.updateOne(filter, updateDoc, options);
+            res.send(res)
+        })
+
         // porducts put 
-        app.put('/products/id', async(req, res) => {
+        app.put('/products/:id', async(req, res) => {
             const id = req.params.id;
             const updateQuantity = req.body;
-            console.log(updateQuantity)
+            console.log(quantity)
             const filter = {_id: ObjectId(id)};
             const options = {upsert: true};
             const updatedDoc = {
                 $set: {
-                    quantity: updateQuantity
+                    quantity: updateQuantity.newQuantity
                 }
             };
             const result = await serviceCollection.updateOne(filter, updatedDoc, options);
-            res.send({result})
+            res.send(result)
         });
+
+
+        // delete service 
+        app.delete('/products/:id', async(req, res) => {
+            const id = req.params.id;
+            const query = {_id: ObjectId(id)};
+            const result = await serviceCollection.deleteOne(query);
+            res.send(result)
+        })
    
 }
 finally{
