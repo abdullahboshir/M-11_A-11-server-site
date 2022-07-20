@@ -46,20 +46,6 @@ try{
         });
 
 
-        app.put('/user/:id', async (req, res) => {
-          
-            const filter = { _id: ObjectId(id) };
-            const options = { upsert: true };
-            const updateDoc = {
-                $set: {
-                    name: updateUser.name,
-                    email: updateUser.email
-                }
-            };
-            const result = await userCollection.updateOne(filter, updateDoc, options);
-            res.send(res)
-        })
-
         // porducts put 
         app.put('/products/:id', async(req, res) => {
             const id = req.params.id;
@@ -73,7 +59,7 @@ try{
                 }
             };
             const result = await serviceCollection.updateOne(filter, updatedDoc, options);
-            res.send(result) 
+            res.send({result}) 
         });
 
 
