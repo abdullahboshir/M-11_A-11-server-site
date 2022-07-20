@@ -69,7 +69,7 @@ try{
             const options = {upsert: true};
             const updatedDoc = {
                 $set: {
-                    quantity: updateQuantity.newQuantity
+                    quantity: updateQuantity.updateQuan
                 }
             };
             const result = await serviceCollection.updateOne(filter, updatedDoc, options);
