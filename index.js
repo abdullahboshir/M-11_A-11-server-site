@@ -46,21 +46,29 @@ try{
         });
 
 
-        // porducts put 
+      
+
         app.put('/products/:id', async(req, res) => {
+          try{
             const id = req.params.id;
-            const updateQuantity = req.body;
-            console.log(quantity)
+            const quantity = req.body.quantity;
+            // console.log(updateQuan)
             const filter = {_id: ObjectId(id)};
             const options = {upsert: true};
             const updatedDoc = {
                 $set: {
-                    quantity: updateQuantity.updateQuan
+                    quantity: quantity
                 }
             };
             const result = await serviceCollection.updateOne(filter, updatedDoc, options);
             res.send({result}) 
+          }
+          catch(error){
+            console.log(error)
+            res.send(error)
+          }
         });
+
 
 
         // delete service 
